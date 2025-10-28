@@ -69,7 +69,7 @@ class Admin_ebooks extends CI_Controller {
 
             // Both files uploaded successfully, now insert into DB
             $data = array(
-                'user_id' => 1, // Placeholder for tenant ID
+                'user_id' => $this->session->userdata('user_id'),
                 'title' => $this->input->post('title'),
                 'author' => $this->input->post('author'),
                 'description' => $this->input->post('description'),

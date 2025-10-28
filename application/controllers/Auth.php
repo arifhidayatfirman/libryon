@@ -51,4 +51,50 @@ class Auth extends CI_Controller {
         $this->session->sess_destroy();
         redirect('login');
     }
+
+    public function register()
+    {
+        $this->load->view('auth/register');
+    }
+
+    public function process_registration()
+    {
+        $this->form_validation->set_rules('full_name', 'Full Name', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+        $this->form_validation->set_rules('password_confirm', 'Confirm Password', 'required|matches[password]');
+
+        if ($this->form_validation->run() === FALSE) {
+            $this->load->view('auth/register');
+        } else {
+            $username = $this->input->post('username');
+            $storage_path = 'user_storage/' . $username . '_' . time();
+
+            // Create user directory
+            if (!mkdir('./uploads/' . $storage_path, 0755, TRUE)) {
+                $this->session->set_flashdata('error', 'Could not create user storage. Please contact admin.');
+                $this->load->view('auth/register');
+                return;
+            }
+
+            $data = array(
+                'full_name' => $this->input->post('full_name'),
+                'username'  => $username,
+                'email'     => $this->input->post('email'),
+                'password'  => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'storage_path' => $storage_path,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            );
+
+            if ($this->User_model->insert_user($data)) {
+                $this->session->set_flashdata('success', 'Registration successful! Please log in.');
+                redirect('login');
+            } else {
+                $this->session->set_flashdata('error', 'Something went wrong. Please try again.');
+                $this->load->view('auth/register');
+            }
+        }
+    }
 }

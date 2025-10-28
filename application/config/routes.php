@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth';
 $route['login'] = 'auth';
 $route['logout'] = 'auth/logout';
+$route['register'] = 'auth/register';
 
 $route['ebooks'] = 'ebook/catalog';
 $route['admin_ebooks'] = 'admin_ebooks/index';
