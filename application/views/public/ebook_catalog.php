@@ -66,7 +66,7 @@
                         <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=base_url();?>index.php/admin_ebooks">Account</a>
+                        <a class="nav-link" href="<?=base_url();?>index.php/auth/profile">Account</a>
                     </li>
                 </ul>
             </div>

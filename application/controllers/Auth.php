@@ -122,4 +122,28 @@ class Auth extends CI_Controller {
         $this->load->view('auth/profile', $data);
         $this->load->view('admin/templates/footer');
     }
+
+    public function change_password()
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
+
+        $data['title'] = 'Change Password';
+        $this->load->view('admin/templates/header', $data);
+        $this->load->view('auth/change_password', $data);
+        $this->load->view('admin/templates/footer');
+    }
+
+    public function ewallet_config()
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
+
+        $data['title'] = 'E-Wallet Configuration';
+        $this->load->view('admin/templates/header', $data);
+        $this->load->view('auth/ewallet_config', $data);
+        $this->load->view('admin/templates/footer');
+    }
 }

@@ -54,6 +54,8 @@ $route['login'] = 'auth';
 $route['logout'] = 'auth/logout';
 $route['register'] = 'auth/register';
 $route['profile'] = 'auth/profile';
+$route['change_password'] = 'auth/change_password';
+$route['ewallet_config'] = 'auth/ewallet_config';
 
 $route['ebooks'] = 'ebook/catalog';
 $route['ebooks/(:num)'] = 'public_shelf/view/$1';
