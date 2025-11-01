@@ -11,16 +11,18 @@ class Ebook_model extends CI_Model {
         $this->load->database();
     }
 
-    // Get all books
+    // Get all books that are not soft-deleted
     public function get_all_books()
     {
+        $this->db->where('deleted_at', NULL);
         $query = $this->db->get($this->table);
         return $query->result_array();
     }
 
-    // Get a single book by its ID
+    // Get a single book by its ID that is not soft-deleted
     public function get_book_by_id($id)
     {
+        $this->db->where('deleted_at', NULL);
         $query = $this->db->get_where($this->table, array('book_id' => $id));
         return $query->row_array();
     }
@@ -38,10 +40,10 @@ class Ebook_model extends CI_Model {
         return $this->db->update($this->table, $data);
     }
 
-    // Delete a book record
-    public function delete_book($id)
+    // Soft delete a book record by setting the deleted_at timestamp
+    public function soft_delete_book($id)
     {
         $this->db->where('book_id', $id);
-        return $this->db->delete($this->table);
+        return $this->db->update($this->table, array('deleted_at' => date('Y-m-d H:i:s')));
     }
 }

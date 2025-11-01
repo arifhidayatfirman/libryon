@@ -14,6 +14,9 @@ class Auth extends CI_Controller {
 
     public function index()
     {
+        if ($this->session->userdata('logged_in')) {
+            redirect('admin_ebooks');
+        }
         $this->load->view('auth/login');
     }
 
@@ -54,6 +57,9 @@ class Auth extends CI_Controller {
 
     public function register()
     {
+        if ($this->session->userdata('logged_in')) {
+            redirect('admin_ebooks');
+        }
         $this->load->view('auth/register');
     }
 
@@ -96,5 +102,24 @@ class Auth extends CI_Controller {
                 $this->load->view('auth/register');
             }
         }
+    }
+
+    public function profile()
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
+
+        $user_id = $this->session->userdata('user_id');
+        $data['user'] = $this->User_model->get_user_by_id($user_id);
+
+        if (empty($data['user'])) {
+            show_404();
+        }
+
+        $data['title'] = 'User Profile';
+        $this->load->view('admin/templates/header', $data);
+        $this->load->view('auth/profile', $data);
+        $this->load->view('admin/templates/footer');
     }
 }

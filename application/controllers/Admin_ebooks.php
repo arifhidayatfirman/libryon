@@ -18,23 +18,33 @@ class Admin_ebooks extends CI_Controller {
 
     public function index()
     {
+        $data['title'] = 'Ebook List';
         $data['books'] = $this->Ebook_model->get_all_books();
+        $this->load->view('admin/templates/header', $data);
         $this->load->view('admin/ebook_list', $data);
+        $this->load->view('admin/templates/footer');
     }
 
     public function create()
     {
+        $data['title'] = 'Add New Ebook';
+        $this->load->view('admin/templates/header', $data);
         $this->load->view('admin/ebook_form');
+        $this->load->view('admin/templates/footer');
     }
 
     public function add()
     {
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('author', 'Author', 'required');
+        $this->form_validation->set_rules('language', 'Language', 'required');
 
         if ($this->form_validation->run() === FALSE) {
             $this->session->set_flashdata('error', validation_errors());
+            $data['title'] = 'Add New Ebook';
+            $this->load->view('admin/templates/header', $data);
             $this->load->view('admin/ebook_form');
+            $this->load->view('admin/templates/footer');
         } else {
             // Config for cover image
             $config_cover['upload_path']   = './img/covers/';
@@ -73,6 +83,7 @@ class Admin_ebooks extends CI_Controller {
                 'title' => $this->input->post('title'),
                 'author' => $this->input->post('author'),
                 'description' => $this->input->post('description'),
+                'language' => $this->input->post('language'),
                 'access_type' => $this->input->post('access_type'),
                 'donation_info' => $this->input->post('donation_info'),
                 'cover_image_file' => $cover_data['file_name'],
@@ -84,6 +95,49 @@ class Admin_ebooks extends CI_Controller {
 
             $this->Ebook_model->insert_book($data);
             $this->session->set_flashdata('success', 'Ebook added successfully!');
+            redirect('admin_ebooks');
+        }
+    }
+
+    public function edit($id)
+    {
+        $data['book'] = $this->Ebook_model->get_book_by_id($id);
+
+        if (empty($data['book'])) {
+            show_404();
+        }
+
+        $data['title'] = 'Edit Ebook';
+        $this->load->view('admin/templates/header', $data);
+        $this->load->view('admin/ebook_form', $data);
+        $this->load->view('admin/templates/footer');
+    }
+
+    public function update($id)
+    {
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('author', 'Author', 'required');
+        $this->form_validation->set_rules('language', 'Language', 'required');
+
+        if ($this->form_validation->run() === FALSE) {
+            $this->session->set_flashdata('error', validation_errors());
+            $data['book'] = $this->Ebook_model->get_book_by_id($id);
+            $data['title'] = 'Edit Ebook';
+            $this->load->view('admin/templates/header', $data);
+            $this->load->view('admin/ebook_form', $data);
+            $this->load->view('admin/templates/footer');
+        } else {
+            $data = array(
+                'title' => $this->input->post('title'),
+                'author' => $this->input->post('author'),
+                'description' => $this->input->post('description'),
+                'language' => $this->input->post('language'),
+                'access_type' => $this->input->post('access_type'),
+                'donation_info' => $this->input->post('donation_info'),
+            );
+
+            $this->Ebook_model->update_book($id, $data);
+            $this->session->set_flashdata('success', 'Ebook updated successfully!');
             redirect('admin_ebooks');
         }
     }
@@ -100,8 +154,8 @@ class Admin_ebooks extends CI_Controller {
                 unlink('./uploads/ebooks/' . $book['file_name']);
             }
             
-            // Delete from database
-            $this->Ebook_model->delete_book($id);
+            // Soft delete from database
+            $this->Ebook_model->soft_delete_book($id);
             $this->session->set_flashdata('success', 'Ebook deleted successfully.');
         } else {
             $this->session->set_flashdata('error', 'Ebook not found.');

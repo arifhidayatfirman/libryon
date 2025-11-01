@@ -49,14 +49,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'auth';
+$route['default_controller'] = 'Public_shelf';
 $route['login'] = 'auth';
 $route['logout'] = 'auth/logout';
 $route['register'] = 'auth/register';
+$route['profile'] = 'auth/profile';
 
 $route['ebooks'] = 'ebook/catalog';
+$route['ebooks/(:num)'] = 'public_shelf/view/$1';
 $route['admin_ebooks'] = 'admin_ebooks/index';
 $route['admin_ebooks/create'] = 'admin_ebooks/create';
+$route['admin_ebooks/edit/(:num)'] = 'admin_ebooks/edit/$1';
 $route['admin_ebooks/(:any)'] = 'admin_ebooks/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

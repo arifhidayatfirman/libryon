@@ -13,8 +13,26 @@ class Public_shelf extends CI_Controller {
     }
 
     public function index() {
-        $data['books'] = $this->Ebook_model->get_all_books();
+        // Join with users table to get uploader's username
+        $this->db->select('books.*, users.username');
+        $this->db->from('books');
+        $this->db->join('users', 'users.user_id = books.user_id', 'left'); 
+        $this->db->where('books.deleted_at IS NULL'); // Assuming soft deletes
+        $query = $this->db->get();
+        $data['books'] = $query->result_array();
         $this->load->view('public/ebook_catalog', $data);
+    }
+
+    public function view($id)
+    {
+        $data['book'] = $this->Ebook_model->get_book_by_id($id);
+
+        if (empty($data['book'])) {
+            show_404();
+        }
+
+        $data['title'] = $data['book']['title'];
+        $this->load->view('public/ebook_view', $data);
     }
 
 }

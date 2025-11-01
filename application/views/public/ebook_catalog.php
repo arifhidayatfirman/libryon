@@ -22,18 +22,28 @@
             transform: translateY(-5px);
             box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
         }
-        .card-img-top {
-            border-top-left-radius: .75rem;
-            border-top-right-radius: .75rem;
-            height: 300px;
-            object-fit: contain;
-            width: 100%;
-        }
+.card-img-top {
+    border-top-left-radius: .75rem;
+    border-top-right-radius: .75rem;
+    height: 300px;
+    object-fit: contain; /* don’t change this */
+    width: 100%;
+    background-color: #fff; /* optional: avoids gray gaps */
+}
+
         .footer {
             padding: 2rem 0;
             background-color: #e9ecef;
             margin-top: 3rem;
         }
+.container {
+    max-width: 1200px;
+}
+.card-img-top {
+    height: 250px;
+    object-fit: contain;
+}
+
     </style>
 </head>
 <body>
@@ -55,6 +65,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=base_url();?>index.php/admin_ebooks">Account</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -67,7 +80,7 @@
         </div>
 
         <!-- Ebook cards will be injected here by jQuery -->
-        <div id="ebook-catalog-container" class="row row-cols-2 g-4"></div>
+<div id="ebook-catalog-container" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4"></div>
     </div>
 
     <footer class="footer text-center">
@@ -83,53 +96,28 @@
 
     <script>
     $(document).ready(function() {
-        const ebooks = [
-            {
-                title: 'The Adventures of CodeIgniter',
-                description: 'A thrilling story of a framework rising to the challenge.',
-                image: '<?=base_url();?>img/xample.jpg'
-            },
-            {
-                title: 'Bootstrap 5: The Missing Manual',
-                description: 'Everything you need to know to build beautiful, responsive websites.',
-                image: '<?=base_url();?>img/xample.jpg'
-            },
-            {
-                title: 'PHP: The Right Way',
-                description: 'An easy-to-read, quick reference for PHP best practices.',
-                image: '<?=base_url();?>img/xample.jpg'
-            },
-            {
-                title: 'The Art of Web Design',
-                description: 'Explore the principles of design and create stunning web experiences.',
-                image: '<?=base_url();?>img/xample.jpg'
-            },
-            {
-                title: 'Modern JavaScript Explained',
-                description: 'A deep dive into the features and patterns of modern JavaScript.',
-                image: '<?=base_url();?>img/xample.jpg'
-            },
-            {
-                title: 'Database Design for Beginners',
-                description: 'Learn the fundamentals of designing efficient and scalable databases.',
-                image: '<?=base_url();?>img/xample.jpg'
-            }
-        ];
-
+        const books = <?php echo json_encode($books); ?>;
         const catalogContainer = $('#ebook-catalog-container');
+        const baseUrl = '<?= base_url(); ?>';
 
-        $.each(ebooks, function(index, ebook) {
+        $.each(books, function(index, book) {
+            const imageUrl = book.cover_image_file ? `${baseUrl}img/covers/${book.cover_image_file}` : `${baseUrl}img/xample.jpg`;
             const cardHtml = `
                 <div class="col">
                     <div class="card h-100">
-                        <img src="${ebook.image}" class="card-img-top" alt="${ebook.title}">
+                        <img src="${imageUrl}" class="card-img-top" alt="${book.title}">
                         <div class="card-body">
-                            <h5 class="card-title">${ebook.title}</h5>
-                            <p class="card-text">${ebook.description}</p>
+                            <h5 class="card-title">${book.title}</h5>
+                            <p class="card-text text-muted">Language: ${book.language}</p>
+                            <p class="card-text">${book.description}</p>
                         </div>
                         <div class="card-footer bg-white border-top-0">
-                            <a href="#" class="btn btn-primary">Read Now</a>
-                            <a href="#" class="btn btn-outline-secondary ms-2">View Details</a>
+                            <a href="${baseUrl}index.php/ebooks/${book.book_id}" class="btn btn-primary">Read Now</a>
+                            <a href="${baseUrl}index.php/ebooks/${book.book_id}" class="btn btn-outline-secondary ms-2">View Details</a>
+                            <div class="d-flex align-items-center mt-3">
+                                <img src="https://i.pravatar.cc/30?u=${book.username}" class="rounded-circle me-2" alt="Uploader avatar">
+                                <small class="text-muted">Uploaded by ${book.username || 'Anonymous'}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
