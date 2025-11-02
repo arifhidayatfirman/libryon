@@ -34,7 +34,7 @@
         </div>
     <?php endif; ?>
 
-    <?php echo form_open('auth/process_registration'); ?>
+    <?php echo form_open_multipart('auth/process_registration'); ?>
 
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Full Name" value="<?php echo set_value('full_name'); ?>" required>
@@ -59,6 +59,11 @@
         <div class="form-floating mb-3">
             <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm Password" required>
             <label for="password_confirm">Confirm Password</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="profile_picture" class="form-label">Profile Picture</label>
+            <input class="form-control" type="file" id="profile_picture" name="profile_picture">
         </div>
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>

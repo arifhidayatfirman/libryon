@@ -143,7 +143,7 @@ body {
 
 <div class="profile-container">
     <div class="profile-header">
-        <img src="https://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($user['email']))); ?>?s=150"
+        <img src="<?php echo !empty($user['profile_picture']) ? base_url('uploads/' . $user['storage_path'] . '/' . $user['profile_picture']) : base_url('img/xample.jpg'); ?>"
              alt="User Avatar" class="profile-avatar">
         <div class="profile-info">
             <h1><?php echo $user['full_name']; ?></h1>

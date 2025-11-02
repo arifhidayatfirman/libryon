@@ -7,7 +7,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo site_url('admin_ebooks'); ?>">Ebooks</a>
+                    <a class="nav-link" href="<?php echo site_url(); ?>">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo site_url('auth/profile'); ?>">Account</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo site_url('logout'); ?>">Logout</a>

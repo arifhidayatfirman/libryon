@@ -8,7 +8,6 @@ class Ebook_model extends CI_Model {
     public function __construct()
     {
         parent::__construct();
-        $this->load->database();
     }
 
     // Get all books that are not soft-deleted
@@ -24,6 +23,17 @@ class Ebook_model extends CI_Model {
     {
         $this->db->where('deleted_at', NULL);
         $query = $this->db->get_where($this->table, array('book_id' => $id));
+        return $query->row_array();
+    }
+
+    public function get_book_with_uploader_info($id)
+    {
+        $this->db->select('books.*, users.username, users.avatar_file, users.full_name');
+        $this->db->from('books');
+        $this->db->join('users', 'users.user_id = books.user_id');
+        $this->db->where('books.book_id', $id);
+        $this->db->where('books.deleted_at', NULL);
+        $query = $this->db->get();
         return $query->row_array();
     }
 

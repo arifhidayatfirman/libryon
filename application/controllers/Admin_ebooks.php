@@ -6,14 +6,12 @@ class Admin_ebooks extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Ebook_model');
-        $this->load->library('form_validation');
-        $this->load->library('session');
-        $this->load->helper(array('form', 'url'));
 
         if (!$this->session->userdata('logged_in')) {
             redirect('auth/login');
         }
+
+        create_placeholder_image();
     }
 
     public function index()
@@ -46,6 +44,14 @@ class Admin_ebooks extends CI_Controller {
             $this->load->view('admin/ebook_form');
             $this->load->view('admin/templates/footer');
         } else {
+            // Create directories if they don't exist
+            if (!is_dir('./img/covers')) {
+                mkdir('./img/covers', 0755, TRUE);
+            }
+            if (!is_dir('./uploads/ebooks')) {
+                mkdir('./uploads/ebooks', 0755, TRUE);
+            }
+
             // Config for cover image
             $config_cover['upload_path']   = './img/covers/';
             $config_cover['allowed_types'] = 'gif|jpg|png|jpeg';

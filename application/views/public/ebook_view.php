@@ -48,7 +48,26 @@
                 <?php if ($book['access_type'] == 'EXCLUSIVE'): ?>
                     <p><strong>Donation Info:</strong> <?php echo $book['donation_info']; ?></p>
                 <?php endif; ?>
-                <a href="#" class="btn btn-primary">Read Now</a>
+                <a href="<?php echo base_url('uploads/ebooks/' . $book['file_name']); ?>" class="btn btn-primary">Read Now</a>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Uploader Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <img src="<?php echo !empty($book['profile_picture']) ? base_url('uploads/user_storage/' . $book['profile_picture']) : base_url('img/xample.jpg'); ?>" class="rounded-circle me-3" alt="<?php echo $book['username']; ?>" style="width: 50px; height: 50px;">
+                            <div>
+                                <h5><?php echo $book['full_name']; ?></h5>
+                                <p class="text-muted">@<?php echo $book['username']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

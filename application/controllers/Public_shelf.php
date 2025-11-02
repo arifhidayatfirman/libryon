@@ -6,10 +6,7 @@ class Public_shelf extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Ebook_model');
-        $this->load->library('form_validation');
-        $this->load->library('session');
-        $this->load->helper(array('form', 'url'));
+        create_placeholder_image();
     }
 
     public function index() {
@@ -25,7 +22,7 @@ class Public_shelf extends CI_Controller {
 
     public function view($id)
     {
-        $data['book'] = $this->Ebook_model->get_book_by_id($id);
+        $data['book'] = $this->Ebook_model->get_book_with_uploader_info($id);
 
         if (empty($data['book'])) {
             show_404();
@@ -33,6 +30,20 @@ class Public_shelf extends CI_Controller {
 
         $data['title'] = $data['book']['title'];
         $this->load->view('public/ebook_view', $data);
+    }
+
+    public function search() {
+        $query = $this->input->get('q');
+        $this->db->select('books.*, users.username');
+        $this->db->from('books');
+        $this->db->join('users', 'users.user_id = books.user_id', 'left');
+        $this->db->like('title', $query);
+        $this->db->or_like('author', $query);
+        $this->db->or_like('description', $query);
+        $this->db->where('books.deleted_at IS NULL');
+        $data['books'] = $this->db->get()->result_array();
+        $data['query'] = $query;
+        $this->load->view('public/ebook_catalog', $data);
     }
 
 }

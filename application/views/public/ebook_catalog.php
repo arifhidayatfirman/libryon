@@ -75,8 +75,8 @@
 
     <div class="container">
         <div class="text-center mb-5">
-            <h1 class="display-4">Ebook Catalog</h1>
-            <p class="lead">Browse our collection of modern ebooks (jQuery version).</p>
+            <h1 class="display-4"><?= isset($query) ? 'Search Results' : 'Ebook Catalog' ?></h1>
+            <p class="lead"><?= isset($query) ? 'Showing results for "' . html_escape($query) . '"' : 'Browse our collection of modern ebooks (jQuery version).' ?></p>
         </div>
 
         <!-- Ebook cards will be injected here by jQuery -->
@@ -112,8 +112,7 @@
                             <p class="card-text">${book.description}</p>
                         </div>
                         <div class="card-footer bg-white border-top-0">
-                            <a href="${baseUrl}index.php/ebooks/${book.book_id}" class="btn btn-primary">Read Now</a>
-                            <a href="${baseUrl}index.php/ebooks/${book.book_id}" class="btn btn-outline-secondary ms-2">View Details</a>
+                            <a href="${baseUrl}index.php/ebooks/${book.book_id}" class="btn btn-primary">Read</a>
                             <div class="d-flex align-items-center mt-3">
                                 <img src="https://i.pravatar.cc/30?u=${book.username}" class="rounded-circle me-2" alt="Uploader avatar">
                                 <small class="text-muted">Uploaded by ${book.username || 'Anonymous'}</small>

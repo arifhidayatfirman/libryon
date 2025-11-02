@@ -6,10 +6,7 @@ class Auth extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('User_model');
-        $this->load->library('form_validation');
-        $this->load->library('session');
-        $this->load->helper(array('form', 'url'));
+        create_placeholder_image();
     }
 
     public function index()
@@ -78,10 +75,34 @@ class Auth extends CI_Controller {
             $storage_path = 'user_storage/' . $username . '_' . time();
 
             // Create user directory
+            if (!is_dir('./uploads/user_storage')) {
+                mkdir('./uploads/user_storage', 0755, TRUE);
+            }
+
             if (!mkdir('./uploads/' . $storage_path, 0755, TRUE)) {
                 $this->session->set_flashdata('error', 'Could not create user storage. Please contact admin.');
                 $this->load->view('auth/register');
                 return;
+            }
+
+            // Profile picture upload
+            $profile_picture = '';
+            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['name'] != '') {
+                $config['upload_path'] = './uploads/' . $storage_path;
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = 2048;
+                $config['encrypt_name'] = TRUE;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('profile_picture')) {
+                    $upload_data = $this->upload->data();
+                    $profile_picture = $upload_data['file_name'];
+                } else {
+                    $this->session->set_flashdata('error', $this->upload->display_errors());
+                    $this->load->view('auth/register');
+                    return;
+                }
             }
 
             $data = array(
@@ -90,6 +111,7 @@ class Auth extends CI_Controller {
                 'email'     => $this->input->post('email'),
                 'password'  => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                 'storage_path' => $storage_path,
+                'profile_picture' => $profile_picture,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             );
