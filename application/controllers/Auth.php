@@ -163,9 +163,33 @@ class Auth extends CI_Controller {
             redirect('login');
         }
 
-        $data['title'] = 'E-Wallet Configuration';
-        $this->load->view('admin/templates/header', $data);
-        $this->load->view('auth/ewallet_config', $data);
-        $this->load->view('admin/templates/footer');
+        $this->load->model('Donation_model');
+        $data['options'] = $this->Donation_model->get_all_options();
+
+        $user_id = $this->session->userdata('user_id');
+        $data['user'] = $this->User_model->get_user_by_id($user_id);
+
+        $this->form_validation->set_rules('donation_option_id', 'Donation Option', 'required');
+        $this->form_validation->set_rules('donation_target', 'Donation Target', 'required');
+
+        if ($this->form_validation->run() === FALSE) {
+            $data['title'] = 'E-Wallet Configuration';
+            $this->load->view('admin/templates/header', $data);
+            $this->load->view('auth/ewallet_config', $data);
+            $this->load->view('admin/templates/footer');
+        } else {
+            $user_id = $this->session->userdata('user_id');
+            $update_data = array(
+                'donation_option_id' => $this->input->post('donation_option_id'),
+                'donation_target' => $this->input->post('donation_target')
+            );
+
+            if ($this->User_model->update_user($user_id, $update_data)) {
+                $this->session->set_flashdata('success', 'E-wallet information updated successfully.');
+            } else {
+                $this->session->set_flashdata('error', 'Failed to update e-wallet information.');
+            }
+            redirect('auth/ewallet_config');
+        }
     }
 }
