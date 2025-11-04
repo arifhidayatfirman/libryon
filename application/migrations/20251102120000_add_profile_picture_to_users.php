@@ -6,7 +6,7 @@ class Migration_Add_profile_picture_to_users extends CI_Migration {
     public function up()
     {
         $fields = array(
-            'profile_picture' => array(
+            'avatar_file' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
@@ -17,6 +17,6 @@ class Migration_Add_profile_picture_to_users extends CI_Migration {
 
     public function down()
     {
-        $this->dbforge->drop_column('users', 'profile_picture');
+        $this->dbforge->drop_column('users', 'avatar_file');
     }
 }

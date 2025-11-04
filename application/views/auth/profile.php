@@ -143,8 +143,7 @@ body {
 
 <div class="profile-container">
     <div class="profile-header">
-        <img src="<?php echo !empty($user['profile_picture']) ? base_url('uploads/' . $user['storage_path'] . '/' . $user['profile_picture']) : base_url('img/xample.jpg'); ?>"
-             alt="User Avatar" class="profile-avatar">
+        <img src="<?php echo base_url($user['avatar_file']); ?>" alt="User Avatar" class="profile-avatar">
         <div class="profile-info">
             <h1><?php echo $user['full_name']; ?></h1>
             <p class="username">@<?php echo $user['username']; ?></p>

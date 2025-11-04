@@ -39,7 +39,7 @@ class Migration_Add_ewallet_to_users extends CI_Migration {
                 'constraint' => 10,
                 'unsigned' => TRUE,
                 'null' => TRUE,
-                'after' => 'profile_picture'
+                'after' => 'avatar_file'
             ),
             'donation_target' => array(
                 'type' => 'VARCHAR',

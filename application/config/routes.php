@@ -63,5 +63,6 @@ $route['admin_ebooks'] = 'admin_ebooks/index';
 $route['admin_ebooks/create'] = 'admin_ebooks/create';
 $route['admin_ebooks/edit/(:num)'] = 'admin_ebooks/edit/$1';
 $route['admin_ebooks/(:any)'] = 'admin_ebooks/$1';
+$route['profile/(:any)'] = 'public_profile/view/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

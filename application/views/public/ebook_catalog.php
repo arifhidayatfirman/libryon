@@ -115,7 +115,7 @@
                             <a href="${baseUrl}index.php/ebooks/${book.book_id}" class="btn btn-primary">Read</a>
                             <div class="d-flex align-items-center mt-3">
                                 <img src="https://i.pravatar.cc/30?u=${book.username}" class="rounded-circle me-2" alt="Uploader avatar">
-                                <small class="text-muted">Uploaded by ${book.username || 'Anonymous'}</small>
+                                <small class="text-muted">Uploaded by <a href="${baseUrl}index.php/profile/${book.username}">${book.username || 'Anonymous'}</a></small>
                             </div>
                         </div>
                     </div>

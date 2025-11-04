@@ -86,24 +86,7 @@ class Auth extends CI_Controller {
             }
 
             // Profile picture upload
-            $profile_picture = '';
-            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['name'] != '') {
-                $config['upload_path'] = './uploads/' . $storage_path;
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = 2048;
-                $config['encrypt_name'] = TRUE;
-
-                $this->load->library('upload', $config);
-
-                if ($this->upload->do_upload('profile_picture')) {
-                    $upload_data = $this->upload->data();
-                    $profile_picture = $upload_data['file_name'];
-                } else {
-                    $this->session->set_flashdata('error', $this->upload->display_errors());
-                    $this->load->view('auth/register');
-                    return;
-                }
-            }
+            $profile_picture = 'img/avatar/user.png';
 
             $data = array(
                 'full_name' => $this->input->post('full_name'),
@@ -111,7 +94,7 @@ class Auth extends CI_Controller {
                 'email'     => $this->input->post('email'),
                 'password'  => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                 'storage_path' => $storage_path,
-                'profile_picture' => $profile_picture,
+                'avatar_file' => $profile_picture,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             );

@@ -10,6 +10,7 @@ class User_model extends CI_Model {
 
     public function get_user_by_username($username)
     {
+        $this->db->select('user_id, username, full_name, bio, avatar_file, donation_target, password');
         $query = $this->db->get_where('users', array('username' => $username));
         return $query->row_array();
     }

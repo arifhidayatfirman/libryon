@@ -28,9 +28,10 @@ class Ebook_model extends CI_Model {
 
     public function get_book_with_uploader_info($id)
     {
-        $this->db->select('books.*, users.username, users.avatar_file, users.full_name');
+        $this->db->select('books.*, users.username, users.avatar_file, users.full_name, users.donation_target, donation_options.name as donation_option_name');
         $this->db->from('books');
         $this->db->join('users', 'users.user_id = books.user_id');
+        $this->db->join('donation_options', 'donation_options.option_id = users.donation_option_id', 'left');
         $this->db->where('books.book_id', $id);
         $this->db->where('books.deleted_at', NULL);
         $query = $this->db->get();
@@ -55,5 +56,23 @@ class Ebook_model extends CI_Model {
     {
         $this->db->where('book_id', $id);
         return $this->db->update($this->table, array('deleted_at' => date('Y-m-d H:i:s')));
+    }
+
+    public function get_books_by_user_id($user_id, $limit = NULL, $offset = NULL)
+    {
+        $this->db->where('user_id', $user_id);
+        $this->db->where('deleted_at', NULL);
+        if ($limit !== NULL && $offset !== NULL) {
+            $this->db->limit($limit, $offset);
+        }
+        $query = $this->db->get($this->table);
+        return $query->result_array();
+    }
+
+    public function count_books_by_user_id($user_id)
+    {
+        $this->db->where('user_id', $user_id);
+        $this->db->where('deleted_at', NULL);
+        return $this->db->count_all_results($this->table);
     }
 }

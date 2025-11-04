@@ -60,10 +60,13 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <img src="<?php echo !empty($book['profile_picture']) ? base_url('uploads/user_storage/' . $book['profile_picture']) : base_url('img/xample.jpg'); ?>" class="rounded-circle me-3" alt="<?php echo $book['username']; ?>" style="width: 50px; height: 50px;">
+                            <img src="<?php echo !empty($book['avatar_file']) ? base_url('uploads/user_storage/' . $book['avatar_file']) : base_url('img/xample.jpg'); ?>" class="rounded-circle me-3" alt="<?php echo $book['username']; ?>" style="width: 50px; height: 50px;">
                             <div>
                                 <h5><?php echo $book['full_name']; ?></h5>
-                                <p class="text-muted">@<?php echo $book['username']; ?></p>
+                                <p class="text-muted">@<a href="<?php echo base_url('profile/' . $book['username']); ?>"><?php echo $book['username']; ?></a></p>
+                                <?php if (!empty($book['donation_target'])): ?>
+                                    <p><strong><?php echo $book['donation_option_name']; ?>:</strong> <?php echo $book['donation_target']; ?></p>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
