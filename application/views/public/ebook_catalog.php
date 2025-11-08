@@ -43,7 +43,15 @@
     height: 250px;
     object-fit: contain;
 }
-
+.exclusive-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+.exclusive-cover {
+    filter: brightness(0.7);
+}
     </style>
 </head>
 <body>
@@ -101,11 +109,16 @@
         const baseUrl = '<?= base_url(); ?>';
 
         $.each(books, function(index, book) {
+            const isExclusive = book.access_type === 'EXCLUSIVE';
             const imageUrl = book.cover_image_file ? `${baseUrl}img/covers/${book.cover_image_file}` : `${baseUrl}img/xample.jpg`;
+            const exclusiveBadge = isExclusive ? '<span class="badge bg-primary exclusive-badge">Exclusive</span>' : '';
+            const imageClass = isExclusive ? 'card-img-top exclusive-cover' : 'card-img-top';
+
             const cardHtml = `
                 <div class="col">
                     <div class="card h-100">
-                        <img src="${imageUrl}" class="card-img-top" alt="${book.title}">
+                        ${exclusiveBadge}
+                        <img src="${imageUrl}" class="${imageClass}" alt="${book.title}">
                         <div class="card-body">
                             <h5 class="card-title">${book.title}</h5>
                             <p class="card-text text-muted">Language: ${book.language}</p>

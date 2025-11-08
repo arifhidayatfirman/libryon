@@ -11,7 +11,7 @@ class Public_shelf extends CI_Controller {
 
     public function index() {
         // Join with users table to get uploader's username
-        $this->db->select('books.*, users.username');
+        $this->db->select('books.*, users.username, books.access_type');
         $this->db->from('books');
         $this->db->join('users', 'users.user_id = books.user_id', 'left'); 
         $this->db->where('books.deleted_at IS NULL'); // Assuming soft deletes
@@ -34,7 +34,7 @@ class Public_shelf extends CI_Controller {
 
     public function search() {
         $query = $this->input->get('q');
-        $this->db->select('books.*, users.username');
+        $this->db->select('books.*, users.username, books.access_type');
         $this->db->from('books');
         $this->db->join('users', 'users.user_id = books.user_id', 'left');
         $this->db->like('title', $query);
