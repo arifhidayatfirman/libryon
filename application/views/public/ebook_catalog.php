@@ -51,14 +51,14 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
         <div class="container">
-            <a class="navbar-brand" href="#">Libryon</a>
+            <a class="navbar-brand" href="<?php echo base_url('index.php/public_shelf'); ?>">Libryon</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Ebooks</a>
+                        <a class="nav-link" href="<?php echo base_url('index.php/public_shelf'); ?>">Ebooks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Categories</a>
@@ -67,7 +67,7 @@
                         <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=base_url();?>index.php/auth/profile">Account</a>
+                        <a class="nav-link" href="<?php echo base_url('index.php/auth/profile'); ?>">Account</a>
                     </li>
                 </ul>
             </div>

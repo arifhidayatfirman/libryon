@@ -15,14 +15,11 @@
       color: #222;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 40px auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    .navbar {
+      box-shadow: 0 2px 4px rgba(0,0,0,.1);
     }
+
+
 
     h1 {
       text-align: center;
@@ -122,17 +119,14 @@
     }
 
     @media (max-width: 600px) {
-      .container {
-        margin: 20px;
-        padding: 20px;
-      }
+
     }
   </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
         <div class="container">
-            <a class="navbar-brand" href="#">Libryon</a>
+            <a class="navbar-brand" href="<?php echo base_url('index.php/public_shelf'); ?>">Libryon</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
