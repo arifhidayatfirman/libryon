@@ -139,7 +139,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/libryon/index.php/public_shelf">Ebooks</a>
+                        <a class="nav-link" href="<?php echo base_url('index.php/public_shelf'); ?>">Ebooks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Categories</a>
@@ -148,7 +148,7 @@
                         <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/libryon/index.php/auth/profile">Account</a>
+                        <a class="nav-link" href="<?php echo base_url('index.php/auth/profile'); ?>">Account</a>
                     </li>
                 </ul>
             </div>
