@@ -1,6 +1,6 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1><?php echo isset($book) ? 'Edit Ebook' : 'Add New Ebook'; ?></h1>
-        <a href="<?php echo site_url('admin_ebooks'); ?>" class="btn btn-secondary">Back to List</a>
+        <a href="<?php echo base_url('index.php/admin_ebooks'); ?>" class="btn btn-secondary">Back to List</a>
     </div>
 
     <!-- Display Messages -->

@@ -67,7 +67,7 @@
     </form>
 
     <p class="mt-3">
-        Already have an account? <a href="<?php echo site_url('login'); ?>">Sign in</a>
+        Already have an account? <a href="<?php echo base_url('index.php/auth/login'); ?>">Sign in</a>
     </p>
 
 </div>

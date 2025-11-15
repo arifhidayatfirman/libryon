@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Ebook List</h1>
-        <a href="<?php echo site_url('admin_ebooks/create'); ?>" class="btn btn-primary">Add New Ebook</a>
+        <a href="<?php echo base_url('index.php/admin_ebooks/create'); ?>" class="btn btn-primary">Add New Ebook</a>
     </div>
 
     <!-- Display Messages -->
@@ -37,8 +37,8 @@
                                 <td><?php echo html_escape($book['language']); ?></td>
                                 <td><?php echo html_escape($book['access_type']); ?></td>
                                 <td>
-                                    <a href="<?php echo site_url('admin_ebooks/edit/' . $book['book_id']); ?>" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="<?php echo site_url('admin_ebooks/delete/' . $book['book_id']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this ebook?');">Delete</a>
+                                    <a href="<?php echo base_url('index.php/admin_ebooks/edit/' . $book['book_id']); ?>" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="<?php echo base_url('index.php/admin_ebooks/delete/' . $book['book_id']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this ebook?');">Delete</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

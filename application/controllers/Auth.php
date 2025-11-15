@@ -41,7 +41,7 @@ class Auth extends CI_Controller {
                 redirect('admin_ebooks');
             } else {
                 $this->session->set_flashdata('error', 'Invalid username or password');
-                redirect('login');
+                redirect('auth/login');
             }
         }
     }
@@ -49,7 +49,7 @@ class Auth extends CI_Controller {
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('login');
+        redirect('auth/login');
     }
 
     public function register()
@@ -101,7 +101,7 @@ class Auth extends CI_Controller {
 
             if ($this->User_model->insert_user($data)) {
                 $this->session->set_flashdata('success', 'Registration successful! Please log in.');
-                redirect('login');
+                redirect('auth/login');
             } else {
                 $this->session->set_flashdata('error', 'Something went wrong. Please try again.');
                 $this->load->view('auth/register');
@@ -112,7 +112,7 @@ class Auth extends CI_Controller {
     public function profile()
     {
         if (!$this->session->userdata('logged_in')) {
-            redirect('login');
+            redirect('auth/login');
         }
 
         $user_id = $this->session->userdata('user_id');
@@ -131,7 +131,7 @@ class Auth extends CI_Controller {
     public function change_password()
     {
         if (!$this->session->userdata('logged_in')) {
-            redirect('login');
+            redirect('auth/login');
         }
 
         $data['title'] = 'Change Password';
@@ -143,7 +143,7 @@ class Auth extends CI_Controller {
     public function ewallet_config()
     {
         if (!$this->session->userdata('logged_in')) {
-            redirect('login');
+            redirect('auth/login');
         }
 
         $this->load->model('Donation_model');

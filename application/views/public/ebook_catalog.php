@@ -116,10 +116,10 @@
                             <p class="card-text">${book.description}</p>
                         </div>
                         <div class="card-footer bg-white border-top-0">
-                            <a href="${baseUrl}index.php/ebooks/${book.book_id}" class="btn btn-primary">Read</a>
+                            <a href="${baseUrl}index.php/public_shelf/view/${book.book_id}" class="btn btn-primary">Read</a>
                             <div class="d-flex align-items-center mt-3">
                                 <img width="30" height="30" src="${baseUrl}${book.avatar_file}" class="rounded-circle me-2" alt="Uploader avatar">
-                                <small class="text-muted">Uploaded by <a href="${baseUrl}index.php/profile/${book.username}">${book.username || 'Anonymous'}</a></small>
+                                <small class="text-muted">Uploaded by <a href="${baseUrl}index.php/public_profile/view/${book.username}">${book.username || 'Anonymous'}</a></small>
                             </div>
                         </div>
                     </div>

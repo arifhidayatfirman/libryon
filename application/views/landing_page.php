@@ -40,7 +40,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/libryon/index.php/public_shelf">Ebooks</a>
+                        <a class="nav-link" href="<?php echo base_url('index.php/public_shelf'); ?>">Ebooks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Categories</a>
@@ -49,7 +49,7 @@
                         <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/libryon/index.php/auth/profile">Account</a>
+                        <a class="nav-link" href="<?php echo base_url('index.php/auth/profile'); ?>">Account</a>
                     </li>
                 </ul>
             </div>
@@ -59,7 +59,7 @@
 		<h1>Welcome to Libryon!</h1>
 		<p>Your personal ebook library.</p>
 		<p>Discover and read a wide variety of ebooks.</p>
-		<form action="/libryon/index.php/public_shelf/search" method="get" class="d-flex" role="search">
+		<form action="<?php echo base_url('index.php/public_shelf/search'); ?>" method="get" class="d-flex" role="search">
 			<input class="form-control me-2" type="search" name="q" placeholder="Search for ebooks" aria-label="Search">
 			<button class="btn btn-outline-success" type="submit">Search</button>
 		</form>

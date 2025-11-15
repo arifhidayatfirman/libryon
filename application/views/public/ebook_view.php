@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo site_url(); ?>">Ebooks</a>
+                        <a class="nav-link" href="<?php echo base_url('index.php/public_shelf'); ?>">Ebooks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Categories</a>
@@ -28,7 +28,7 @@
                         <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo site_url('admin_ebooks'); ?>">Account</a>
+                        <a class="nav-link" href="<?php echo base_url('index.php/auth/profile'); ?>">Account</a>
                     </li>
                 </ul>
             </div>
@@ -57,7 +57,7 @@
                 <?php if(empty($enc_user_id)) { ?>
                                   <div class="alert alert-warning d-flex align-items-center">
                     <div>
-                        <strong>Please login to start reading. dont have account? <a href="<?=base_url();?>auth;?>">register</a></strong>
+                        <strong>Please login to start reading. dont have account? <a href="<?=base_url('index.php/auth/register');?>">register</a></strong>
                     </div></div>  
 
                 <?php } elseif($has_access==true) { ?>
@@ -80,7 +80,7 @@
                             <div class="mt-1"><?php echo htmlspecialchars($book['donation_info']); ?></div>
                         <?php endif; ?>
                     </div>
-                    <a href="<?php echo base_url('profile/' . $book['username']); ?>" class="btn btn-sm btn-primary ms-auto">Donate / Contact Uploader</a>
+                    <a href="<?php echo base_url('index.php/public_profile/view/' . $book['username']); ?>" class="btn btn-sm btn-primary ms-auto">Donate / Contact Uploader</a>
                 </div>
                 <?php } ?>
             </div>
@@ -97,7 +97,7 @@
                             <img src="<?php echo !empty($book['avatar_file']) ? base_url($book['avatar_file']) : base_url('img/avatar/user.png'); ?>" class="rounded-circle me-3" alt="<?php echo $book['username']; ?>" style="width: 50px; height: 50px;">
                             <div>
                                 <h5><?php echo $book['full_name']; ?></h5>
-                                <p class="text-muted">@<a href="<?php echo base_url('profile/' . $book['username']); ?>"><?php echo $book['username']; ?></a></p>
+                                <p class="text-muted">@<a href="<?php echo base_url('index.php/public_profile/view/' . $book['username']); ?>"><?php echo $book['username']; ?></a></p>
                                 <?php if (!empty($book['donation_target'])): ?>
                                     <p><strong><?php echo $book['donation_option_name']; ?>:</strong> <?php echo $book['donation_target']; ?></p>
                                 <?php endif; ?>
@@ -125,6 +125,7 @@
 </html>
 
 <script>
+    const readerDomain = '<?php echo READER_DOMAIN; ?>';
     document.querySelector('.btn-read').addEventListener('click', function() {
         var bookId = this.getAttribute('data-id');
         var userId = '<?php echo $enc_user_id; ?>';
@@ -144,7 +145,7 @@
 
             $.ajax(settings).done(function (response) {
                 if(response.success) {
-                    var readerUrl = '<?=READER_DOMAIN;?>weblander.html?id=' + encodeURIComponent(bookId) + '&kd=' + encodeURIComponent(userId);
+                    var readerUrl = readerDomain + 'weblander.html?id=' + encodeURIComponent(bookId) + '&kd=' + encodeURIComponent(userId);
                     window.open(readerUrl, '_blank');
                 } else {
                     Swal.fire({

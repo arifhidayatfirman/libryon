@@ -48,7 +48,7 @@
     </form>
 
     <p class="mt-3">
-        Don't have an account? <a href="<?php echo site_url('register'); ?>">Register here</a>
+        Don't have an account? <a href="<?php echo base_url('index.php/auth/register'); ?>">Register here</a>
     </p>
 
 </div>
