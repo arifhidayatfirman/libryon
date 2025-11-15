@@ -6,6 +6,7 @@
     <title>Ebook Catalog (jQuery)</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/books.css'); ?>">
     <style>
         body {
             background-color: #f8f9fa;
@@ -105,7 +106,10 @@
             const cardHtml = `
                 <div class="col">
                     <div class="card h-100">
-                        <img src="${imageUrl}" class="card-img-top" alt="${book.title}">
+                        <div class="book-cover ${book.access_type === 'EXCLUSIVE' ? 'exclusive' : ''}">
+                            <img src="${imageUrl}" class="card-img-top" alt="${book.title}">
+                            ${book.access_type === 'EXCLUSIVE' ? '<span class="exclusive-badge">Exclusive</span>' : ''}
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">${book.title}</h5>
                             <p class="card-text text-muted">Language: ${book.language}</p>
@@ -114,7 +118,7 @@
                         <div class="card-footer bg-white border-top-0">
                             <a href="${baseUrl}index.php/ebooks/${book.book_id}" class="btn btn-primary">Read</a>
                             <div class="d-flex align-items-center mt-3">
-                                <img src="https://i.pravatar.cc/30?u=${book.username}" class="rounded-circle me-2" alt="Uploader avatar">
+                                <img width="30" height="30" src="${baseUrl}${book.avatar_file}" class="rounded-circle me-2" alt="Uploader avatar">
                                 <small class="text-muted">Uploaded by <a href="${baseUrl}index.php/profile/${book.username}">${book.username || 'Anonymous'}</a></small>
                             </div>
                         </div>

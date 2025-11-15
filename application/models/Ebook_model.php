@@ -14,6 +14,7 @@ class Ebook_model extends CI_Model {
     public function get_all_books()
     {
         $this->db->where('deleted_at', NULL);
+        $this->db->where('user_id', $this->session->userdata('user_id'));
         $query = $this->db->get($this->table);
         return $query->result_array();
     }
@@ -75,4 +76,17 @@ class Ebook_model extends CI_Model {
         $this->db->where('deleted_at', NULL);
         return $this->db->count_all_results($this->table);
     }
+
+    public function get_access_by_user($user_id, $book_id)
+    {
+        $this->db->where('borrower_user_id', $user_id);
+        $this->db->where('book_id', $book_id);
+        $query = $this->db->get('book_access_transactions');
+        if ($query->num_rows() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

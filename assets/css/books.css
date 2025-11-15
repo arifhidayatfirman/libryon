@@ -1,0 +1,28 @@
+.book-cover {
+    position: relative;
+    display: inline-block;
+}
+
+.book-cover.exclusive img {
+    filter: brightness(0.7);
+    transition: filter 0.3s ease;
+}
+
+.book-cover.exclusive:hover img {
+    filter: brightness(0.9);
+}
+
+.exclusive-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ffd700;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1;
+}
