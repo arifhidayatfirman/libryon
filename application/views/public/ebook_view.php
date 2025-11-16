@@ -53,7 +53,7 @@
             <div class="col-md-8">
                 <h1><?php echo $book['title']; ?></h1>
                 <p class="text-muted">By <?php echo $book['author']; ?></p>
-                <p><?php echo $book['description']; ?></p>
+                <p class="book-description"><?php echo $book['description']; ?></p>
                 <p><strong>Language:</strong> <?php echo $book['language']; ?></p>
                 <p><strong>Access:</strong> <?php echo $book['access_type']; ?></p>
                 <?php if ($book['access_type'] == 'EXCLUSIVE'): ?>
@@ -61,8 +61,8 @@
                 <?php endif; ?>
                 <?php if(empty($enc_user_id)) { ?>
                                   <div class="alert alert-warning d-flex align-items-center">
-                    <div>
-                        <strong>Please login to start reading. dont have account? <a href="<?=base_url('index.php/auth/register');?>">register</a></strong>
+                    <div class="flex-grow-1">
+                        <strong>Please <a href="<?=base_url('index.php/auth/login');?>">login</a> to start reading. dont have account? <a href="<?=base_url('index.php/auth/register');?>">register</a></strong>
                     </div></div>  
 
                 <?php } elseif($has_access==true) { ?>
